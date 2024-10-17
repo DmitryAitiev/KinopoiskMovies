@@ -1,12 +1,15 @@
 package com.example.movies
 
+import androidx.room.Embedded
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
-
-data class Movie(@SerializedName("id") val id: Int,
+@Entity(tableName = "favourite_movies")
+data class Movie(@PrimaryKey @SerializedName("id") val id: Int,
                  @SerializedName("name") val name: String,
                  @SerializedName("description") val description: String,
                  @SerializedName("year") val year: Int,
-                 @SerializedName("poster") val poster: Poster,
-                 @SerializedName("rating") val rating: Rating): Serializable {
+                 @Embedded @SerializedName ("poster") val poster: Poster,
+                 @Embedded @SerializedName ("rating") val rating: Rating): Serializable {
 }
