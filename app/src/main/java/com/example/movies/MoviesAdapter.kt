@@ -13,7 +13,7 @@ import com.example.movies.databinding.ActivityMainBinding
 
 class MoviesAdapter: RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>() {
     private var movies:List<Movie> = mutableListOf()
-    private lateinit var onReachEndListener: OnReachEndListener
+    private var onReachEndListener: OnReachEndListener? = null
     private lateinit var onClick: OnClick
 
     fun setOnReachEndListener(onReachEndListener: OnReachEndListener){
@@ -48,8 +48,8 @@ class MoviesAdapter: RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>() {
         holder.textViewRating.setBackground(drawable)
         holder.textViewRating.setText(movie.rating.kp.toString().substring(0, 3))
 
-        if (position >= movies.size - 15)
-            onReachEndListener.onReachEnd()
+        if (position >= movies.size - 15 && onReachEndListener != null)
+            onReachEndListener?.onReachEnd()
         holder.itemView.setOnClickListener {
             onClick.onMovieClick(movie)
         }
